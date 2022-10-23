@@ -1,47 +1,48 @@
 import React, { useState } from "react";
 
-import { Form, Col, Row, Button } from "react-bootstrap";
-
 import { useDispatch } from "react-redux";
 
 import { filterPizzas } from "../actions/PizzaAction";
 export default function Filter() {
-  const dispatch = useDispatch();
-  const [searchkey, setSearchKey] = useState("");
-  const [category, setcategory] = useState("all");
+const dispatch = useDispatch();
+const [searchkey, setsearchkey] = useState("");
+const [category, setcategory] = useState("all");
   return (
-    <div className="p-4">
-      <Form>
-        <Row style={{ margin: "space-around" }}>
-          <Col>
-            <Form.Control
-              value={searchkey}
-              onChange={(e) => setSearchKey(e.target.value)}
-              placeholder="Search Pizza"
-            />
-          </Col>
-          <Col>
-            <select
-              className="form-select"
-              value={category}
-              onChange={(e) => setcategory(e.target.value)}
-            >
-              <option>All</option>
-              <option>veg</option>
-              <option>nonveg</option>
-            </select>
-          </Col>
-          <Col>
-            <Button
-              onClick={() => {
-                dispatch(filterPizzas(searchkey, category));
-              }}
-            >
-              Search
-            </Button>
-          </Col>
-        </Row>
-      </Form>
+    <div className="container">
+      <div className="row justify-content-center shadow-lg p-3 mb-5 bg-white rounded">
+        <div className="col-md-3 w-50">
+          <input
+            onChange={(e) => {
+              setsearchkey(e.target.value);
+            }}
+            value={searchkey}
+            type="text"
+            className="form-control w-100"
+            placeholder="search pizzas"
+          />
+        </div>
+        <div className="col-md-3 w-50">
+          <select
+            className="form-control w-50 mt-2"
+            value={category}
+            onChange={(e) => setcategory(e.target.value)}
+          >
+            <option value="all">All</option>
+            <option value="veg">Veg</option>
+            <option value="nonveg">Non Veg</option>
+          </select>
+        </div>
+        <div className="col-md-3 w-50">
+          <button
+            className="btn w-50 mt-2"
+            onClick={() => {
+              dispatch(filterPizzas(searchkey, category));
+            }}
+          >
+            FILTER
+          </button>
+        </div>
+      </div>
     </div>
   );
 }
